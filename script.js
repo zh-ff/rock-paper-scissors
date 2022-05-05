@@ -3,14 +3,11 @@ function computerPlay() {
     const shapeName = Math.floor(Math.random() * 3);
     switch (shapeName) {
         case 0:
-            return 'Rock';
-            break;
+            return 'rock';
         case 1:
-            return 'Paper';
-            break;
+            return 'paper';
         case 2:
-            return 'Scissors';
-            break;
+            return 'scissors';
     }
 }
 
@@ -42,6 +39,17 @@ function playRound(playerSelection, computerSelection) {
     return [playerScore, computerScore, roundMessage];
 }
 
+// Decide the winner
+function decideTheWinner(playerScore, computerScore) {
+    if (playerScore > computerScore) {
+        return 'Player Wins!';
+    } else if (computerScore > playerScore) {
+        return 'Computer Wins!';
+    } else {
+        return 'Tie!';
+    }
+}
+
 // A 5 round game that keeps score and reports a winner or loser at the end.
 function game() {
     let playerSelection;
@@ -50,20 +58,14 @@ function game() {
     let computerScore = 0;
     for (let i = 1; i <= 5; i++) {
         playerSelection = prompt('Choose: rock, paper or scissors.').toLowerCase(); // Get input from the user.
-        computerSelection = computerPlay().toLowerCase(); // Random choice of computer.
+        computerSelection = computerPlay(); // Random choice of computer.
         let round = playRound(playerSelection, computerSelection);
         console.log(`Round ${i}\n${round[2]}\nPlayer score: ${playerScore += round[0]} Computer score: ${computerScore += round[1]}`);
     }
-
-    // Decide the winner
-    if (playerScore > computerScore) {
-        console.log("Player Wins!");
-    } else if (computerScore > playerScore) {
-        console.log("Computer Wins!");
-    } else {
-        console.log("Tie!");
-    }
+    console.log(decideTheWinner(playerScore, computerScore));
 }
 
 // Rock paper scissors vs Computer!
 game();
+
+
