@@ -14,8 +14,6 @@ let playerScore = 0;
 let computerScore = 0;
 // A function that plays a single round of Rock Paper Scissors.
 function playRound(playerSelection, computerSelection) {
-
-
     let roundMessage = '';
 
     if (playerSelection === computerSelection) {
@@ -48,29 +46,46 @@ function decideTheWinner(playerScore, computerScore) {
     }
 }
 
-const section = document.querySelector('section'); // section with buttons
+const buttons = document.querySelectorAll('.btn');
 const playerSelectionText = document.querySelector('#player-selection');
 const computerSelectionText = document.querySelector('#computer-selection');
-const roundResults = document.querySelector('#round-results');
+const roundResultsDiv = document.querySelector('#round-results');
+const roundResultsPara = document.createElement('p');
 
-section.addEventListener('click', event => {
-    if (playerScore < 5 && computerScore < 5) {
-        let playerSelection = event.target.textContent.toLowerCase();
-        if (event.target.nodeName != 'BUTTON') {
-            return;
+let roundResults;
+let gameResults;
+let roundCounter = 1;
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (playerScore < 5 && computerScore < 5) {
+            // for clicks outside buttons
+            if (button.nodeName != 'BUTTON') {
+                return;
+            }
+
+            let playerSelection = button.textContent.toLowerCase();
+            let computerSelection = computerPlay();
+            //const roundResultsPara = document.createElement('p');
+
+            // Play round and get results array
+            roundResults = playRound(playerSelection, computerSelection);
+
+            computerSelectionText.textContent = `Computer choice is ${computerSelection}`;
+            playerSelectionText.textContent = `Player choice is ${playerSelection}`;
+            roundResultsPara.setAttribute('id', 'round-' + roundCounter);
+
+            roundResultsPara.textContent = `Round ${roundCounter} Player score: ${roundResults[0]} Computer score: ${roundResults[1]} ${roundResults[2]}`;
+            roundResultsDiv.appendChild(roundResultsPara);
+
+            roundCounter++;
+
+        } else {
+            gameResults = decideTheWinner(playerScore, computerScore); // Get game winner
+            const gameResultsPara = document.createElement('p');
+            gameResultsPara.textContent = `${gameResults}`;
+            roundResultsDiv.appendChild(gameResultsPara);
         }
-        let computerSelection = computerPlay();
-        computerSelectionText.textContent = `Computer choice is ${computerSelection}`;
-
-        playerSelectionText.textContent = `Player choice is ${playerSelection}`;
-        console.log(playRound(playerSelection, computerSelection));
-        //console.log(playerScore);
-    } else {
-        roundResults.textContent = decideTheWinner(playerScore, computerScore);
-        console.log('yes');
-    }
+    })
 
 })
-
-
-
