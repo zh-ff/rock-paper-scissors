@@ -1,3 +1,16 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const buttons = document.querySelectorAll('.btn');
+const playerSelectionText = document.querySelector('#player-selection');
+const computerSelectionText = document.querySelector('#computer-selection');
+const roundResultsDiv = document.querySelector('#round-results');
+const roundResultsPara = document.createElement('p');
+
+let roundResults;
+let gameResults;
+let roundCounter = 1;
+
 // A function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’.
 function computerPlay() {
     const shapeName = Math.floor(Math.random() * 3);
@@ -10,8 +23,7 @@ function computerPlay() {
             return 'scissors';
     }
 }
-let playerScore = 0;
-let computerScore = 0;
+
 // A function that plays a single round of Rock Paper Scissors.
 function playRound(playerSelection, computerSelection) {
     let roundMessage = '';
@@ -46,46 +58,56 @@ function decideTheWinner(playerScore, computerScore) {
     }
 }
 
-const buttons = document.querySelectorAll('.btn');
-const playerSelectionText = document.querySelector('#player-selection');
-const computerSelectionText = document.querySelector('#computer-selection');
-const roundResultsDiv = document.querySelector('#round-results');
-const roundResultsPara = document.createElement('p');
+function handleMouseClick(event) {
 
-let roundResults;
-let gameResults;
-let roundCounter = 1;
+    if (playerScore < 5 && computerScore < 5) {
+        // for clicks outside buttons
+        checkIfButton(event);
+        playGame(event);
 
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        if (playerScore < 5 && computerScore < 5) {
-            // for clicks outside buttons
-            if (button.nodeName != 'BUTTON') {
-                return;
-            }
+    } else {
+        gameResults = decideTheWinner(playerScore, computerScore); // Get game winner
+        const gameResultsPara = document.createElement('p');
+        gameResultsPara.textContent = `${gameResults}`;
+        roundResultsDiv.appendChild(gameResultsPara);
+        
+        removeMouseClick();
+    }
+}
 
-            let playerSelection = button.textContent.toLowerCase();
-            let computerSelection = computerPlay();
-            //const roundResultsPara = document.createElement('p');
+function playGame(event) {
+    let playerSelection = event.target.textContent.toLowerCase();
+    let computerSelection = computerPlay();
 
-            // Play round and get results array
-            roundResults = playRound(playerSelection, computerSelection);
+    // Play round and get results array
+    roundResults = playRound(playerSelection, computerSelection);
 
-            computerSelectionText.textContent = `Computer choice is ${computerSelection}`;
-            playerSelectionText.textContent = `Player choice is ${playerSelection}`;
-            roundResultsPara.setAttribute('id', 'round-' + roundCounter);
+    computerSelectionText.textContent = `Computer choice is ${computerSelection}`;
+    playerSelectionText.textContent = `Player choice is ${playerSelection}`;
+    roundResultsPara.setAttribute('id', 'round-' + roundCounter);
 
-            roundResultsPara.textContent = `Round ${roundCounter} Player score: ${roundResults[0]} Computer score: ${roundResults[1]} ${roundResults[2]}`;
-            roundResultsDiv.appendChild(roundResultsPara);
+    roundResultsPara.textContent = `Round ${roundCounter} Player score: ${roundResults[0]} Computer score: ${roundResults[1]} ${roundResults[2]}`;
+    roundResultsDiv.appendChild(roundResultsPara);
 
-            roundCounter++;
+    roundCounter++;
+}
 
-        } else {
-            gameResults = decideTheWinner(playerScore, computerScore); // Get game winner
-            const gameResultsPara = document.createElement('p');
-            gameResultsPara.textContent = `${gameResults}`;
-            roundResultsDiv.appendChild(gameResultsPara);
-        }
+function removeMouseClick() {
+    buttons.forEach((button) => {
+        button.removeEventListener('click', handleMouseClick);
     })
+}
 
-})
+function addMouseClick() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', handleMouseClick);
+    })
+}
+
+function checkIfButton(event) {
+    if (event.target.nodeName != 'BUTTON') {
+        return;
+    }
+}
+
+addMouseClick();
