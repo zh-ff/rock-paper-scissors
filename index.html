@@ -6,23 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock paper scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <section>
-        <button class="btn rock">Rock</button>
-        <button class="btn paper">Paper</button>
-        <button class="btn scissors">Scissors</button>
-    </section>
-    <div>
-        <h1>Player Choice</h1>
-        <p id="player-selection">Player choice is</p>
-        <h1>Computer Choice</h1>
-        <p id="computer-selection">Computer choice is</p>
-        <div id="round-results"><h1>Round Results!</h1></div>
+    <div id="container">
+        <section id="player-choice">
+            <img id="paper" class="image" src="images/paper.png" alt="">
+            <img id="rock" class="image" src="images/rock.png" alt="">
+            <img id="scissors" class="image" src="images/scissors.png" alt="">
+        </section>
+        <div id="choice-text">
+            <div>
+                <h1>Player Choice</h1>
+                <p id="player-selection">Player choice is</p>
+            </div>
+
+            <div>
+                <h1>Computer Choice</h1>
+                <p id="computer-selection">Computer choice is</p>
+            </div>
+
+        </div>
+        <div id="round-results">
+            <h1>Round Results!</h1>
+        </div>
     </div>
-
-
 
     <script src="script.js"></script>
 </body>

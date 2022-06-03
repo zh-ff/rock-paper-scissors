@@ -1,11 +1,11 @@
 let playerScore = 0;
 let computerScore = 0;
 
-const buttons = document.querySelectorAll('.btn');
 const playerSelectionText = document.querySelector('#player-selection');
 const computerSelectionText = document.querySelector('#computer-selection');
 const roundResultsDiv = document.querySelector('#round-results');
 const roundResultsPara = document.createElement('p');
+const images = document.querySelectorAll('.image');
 
 let roundResults;
 let gameResults;
@@ -61,8 +61,9 @@ function decideTheWinner(playerScore, computerScore) {
 function handleMouseClick(event) {
 
     if (playerScore < 5 && computerScore < 5) {
+
         // for clicks outside buttons
-        checkIfButton(event);
+        checkIfImage(event);
         playGame(event);
 
     } else {
@@ -70,13 +71,14 @@ function handleMouseClick(event) {
         const gameResultsPara = document.createElement('p');
         gameResultsPara.textContent = `${gameResults}`;
         roundResultsDiv.appendChild(gameResultsPara);
-        
+
         removeMouseClick();
     }
 }
 
 function playGame(event) {
-    let playerSelection = event.target.textContent.toLowerCase();
+
+    let playerSelection = event.target.id.toLowerCase();
     let computerSelection = computerPlay();
 
     // Play round and get results array
@@ -93,19 +95,19 @@ function playGame(event) {
 }
 
 function removeMouseClick() {
-    buttons.forEach((button) => {
-        button.removeEventListener('click', handleMouseClick);
+    images.forEach((img) => {
+        img.removeEventListener('click', handleMouseClick);
     })
 }
 
 function addMouseClick() {
-    buttons.forEach((button) => {
-        button.addEventListener('click', handleMouseClick);
+    images.forEach((img) => {
+        img.addEventListener('click', handleMouseClick);
     })
 }
 
-function checkIfButton(event) {
-    if (event.target.nodeName != 'BUTTON') {
+function checkIfImage(event) {
+    if (event.target.nodeName != 'IMG') {
         return;
     }
 }
