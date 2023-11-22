@@ -21,23 +21,10 @@ function playRound(playerSelection, computerSelection) {
 
     if (playerSelection == computerSelection) {
         return "Draw!"
-    }
-
-    if (playerSelection == "scissors" && computerSelection == "paper") {
-        return "You Win! Scissors beat paper!";
-    } else if (playerSelection == "scissors" && computerSelection == "rock") {
-        return "You Lose! Rock beats scissors!";
-    } else if (playerSelection == "paper" && computerSelection == "rock") {
-        return "You Win! Paper beats rock!";
-    } else if (playerSelection == "paper" && computerSelection == "scissors") {
-        return "You Lose! Scissors beat paper!";
-    } else if (playerSelection == "rock" && computerSelection == "scissors") {
-        return "You Win! Rock beats scissors!";
-    } else if (playerSelection == "rock" && computerSelection == "paper") {
-        return "You Lose! Paper beats rock!";
-    }
-    else {
-        "Your input is incorrect!";
+    } else if (playerSelection == "scissors" && computerSelection == "paper" || playerSelection == "paper" && computerSelection == "rock" || playerSelection == "rock" && computerSelection == "scissors") {
+        return `You Win! ${playerSelection} beat ${computerSelection}!`;
+    } else {
+        return `You Lose! ${computerSelection} beat ${playerSelection}!`;
     }
 }
 
