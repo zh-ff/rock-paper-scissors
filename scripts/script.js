@@ -19,39 +19,33 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
 
-    if (playerSelection == "scissors") {
-        if (computerSelection == "paper") {
-            return "You Win! Scissors beat paper!";
-        } else if (computerSelection == "rock") {
-            return "You Lose! Rock beats scissors!";
-        } else {
-            return "Draw!";
-        }
-    } else if (playerSelection == "paper") {
-        if (computerSelection == "rock") {
-            return "You Win! Paper beats rock!";
-        } else if (computerSelection == "scissors") {
-            return "You Lose! Scissors beat paper!";
-        } else {
-            return "Draw!";
-        }
-    } else if (playerSelection == "rock") {
-        if (computerSelection == "scissors") {
-            return "You Win! Rock beats scissors!";
-        } else if (computerSelection == "paper") {
-            return "You Lose! Paper beats rock!";
-        } else {
-            return "Draw!";
-        }
-    } else {
+    if (playerSelection == computerSelection) {
+        return "Draw!"
+    }
+
+    if (playerSelection == "scissors" && computerSelection == "paper") {
+        return "You Win! Scissors beat paper!";
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+        return "You Lose! Rock beats scissors!";
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
+        return "You Win! Paper beats rock!";
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
+        return "You Lose! Scissors beat paper!";
+    } else if (playerSelection == "rock" && computerSelection == "scissors") {
+        return "You Win! Rock beats scissors!";
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
+        return "You Lose! Paper beats rock!";
+    }
+    else {
         "Your input is incorrect!";
     }
 }
 
 function game() {
+    let roundsNumber = 5;
     let playerSelection;
     let computerSelection;
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= roundsNumber; i++) {
         playerSelection = prompt("enter rock, paper or scissors").toLowerCase();
         computerSelection = getComputerChoice().toLowerCase();
         console.log(`Round ${i}\nPlayer choice: ${playerSelection}\nComputer choice: ${computerSelection}`)
